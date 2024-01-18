@@ -52,7 +52,7 @@ end;
 
 function TAccount.ToString: String;
 begin
-    Result := Format('TAccount{id=%s, type=%s, name=%s}', [Id, Typ.Name, Name]);
+    Result := Format('TAccount{Id=%s, Type=%s, Name=%s}', [Id, Typ.Name, Name]);
 end;
 
 end.

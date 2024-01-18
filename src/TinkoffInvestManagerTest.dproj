@@ -5,7 +5,7 @@
         <FrameworkType>None</FrameworkType>
         <MainSource>TinkoffInvestManagerTest.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Console</AppType>
@@ -192,11 +192,13 @@
         <DCCReference Include="tinkoff\enum\AccountTypeUnit.pas"/>
         <DCCReference Include="tinkoff\enum\AccountAccessLevelUnit.pas"/>
         <DCCReference Include="tinkoff\service\UsersServiceUnit.pas"/>
-        <DCCReference Include="util\HttpUtilUnit.pas"/>
+        <DCCReference Include="tinkoff\util\HttpUtilUnit.pas"/>
         <DCCReference Include="config\ApplicationContextUnit.pas"/>
         <DCCReference Include="util\IniUtilUnit.pas"/>
         <DCCReference Include="tinkoff\entity\AccountUnit.pas"/>
         <DCCReference Include="tinkoff\entity\AccountsUnit.pas"/>
+        <DCCReference Include="tinkoff\entity\GetInfoResponseUnit.pas"/>
+        <DCCReference Include="tinkoff\util\JsonUtilUnit.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -235,6 +237,12 @@
                 </DeployFile>
                 <DeployFile LocalName="$(BDS)\Redist\iossimulator\libpcre.dylib" Class="DependencyModule">
                     <Platform Name="iOSSimulator">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\bin\TinkoffInvestManagerTest.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>TinkoffInvestManagerTest.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

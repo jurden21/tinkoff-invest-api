@@ -4,22 +4,25 @@ program TinkoffInvestManagerTest;
 {$R *.res}
 
 uses
-    System.SysUtils,
-    System.Generics.Collections,
-    TinkoffClientUnit in 'tinkoff\TinkoffClientUnit.pas',
-    AccountStatusUnit in 'tinkoff\enum\AccountStatusUnit.pas',
-    AccountTypeUnit in 'tinkoff\enum\AccountTypeUnit.pas',
-    AccountAccessLevelUnit in 'tinkoff\enum\AccountAccessLevelUnit.pas',
-    UsersServiceUnit in 'tinkoff\service\UsersServiceUnit.pas',
-    HttpUtilUnit in 'util\HttpUtilUnit.pas',
-    ApplicationContextUnit in 'config\ApplicationContextUnit.pas',
-    IniUtilUnit in 'util\IniUtilUnit.pas',
-    AccountUnit in 'tinkoff\entity\AccountUnit.pas',
-    AccountsUnit in 'tinkoff\entity\AccountsUnit.pas';
+  System.SysUtils,
+  System.Generics.Collections,
+  TinkoffClientUnit in 'tinkoff\TinkoffClientUnit.pas',
+  AccountStatusUnit in 'tinkoff\enum\AccountStatusUnit.pas',
+  AccountTypeUnit in 'tinkoff\enum\AccountTypeUnit.pas',
+  AccountAccessLevelUnit in 'tinkoff\enum\AccountAccessLevelUnit.pas',
+  UsersServiceUnit in 'tinkoff\service\UsersServiceUnit.pas',
+  HttpUtilUnit in 'tinkoff\util\HttpUtilUnit.pas',
+  ApplicationContextUnit in 'config\ApplicationContextUnit.pas',
+  IniUtilUnit in 'util\IniUtilUnit.pas',
+  AccountUnit in 'tinkoff\entity\AccountUnit.pas',
+  AccountsUnit in 'tinkoff\entity\AccountsUnit.pas',
+  GetInfoResponseUnit in 'tinkoff\entity\GetInfoResponseUnit.pas',
+  JsonUtilUnit in 'tinkoff\util\JsonUtilUnit.pas';
 
 var
     Client: TTinkoffClient;
     Accounts: TObjectList<TAccount>;
+    GetInfoResponse: TGetInfoResponse;
     Index: Integer;
 
 begin
@@ -35,6 +38,13 @@ begin
             Writeln(Accounts[Index].ToString);
         Accounts.Free;
         Writeln('=====================================================================');
+        Writeln('');
+
+        Writeln('Request UserService.GetInfo...');
+        GetInfoResponse := Client.GetInfo;
+        Writeln(GetInfoResponse.ToString);
+        Writeln('=====================================================================');
+        Writeln('');
 
     finally
         Client.Free;
