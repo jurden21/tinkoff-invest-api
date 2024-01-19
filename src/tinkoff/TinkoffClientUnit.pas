@@ -8,9 +8,12 @@ uses
 
 type
     TTinkoffClient = class
+    private
+        FKey: String;
     public
-        class function GetAccounts: TObjectList<TAccount>;
-        class function GetInfo: TGetInfoResponse;
+        constructor Create(AKey: String);
+        function GetAccounts: TObjectList<TAccount>;
+        function GetInfo: TGetInfoResponse;
     end;
 
 implementation
@@ -20,14 +23,19 @@ uses
 
 { TTinkoffClient }
 
-class function TTinkoffClient.GetAccounts: TObjectList<TAccount>;
+constructor TTinkoffClient.Create(AKey: String);
 begin
-    Result := TUsersService.GetAccounts;
+    FKey := AKey;
 end;
 
-class function TTinkoffClient.GetInfo: TGetInfoResponse;
+function TTinkoffClient.GetAccounts: TObjectList<TAccount>;
 begin
-    Result := TUsersService.GetInfo;
+    Result := TUsersService.GetAccounts(FKey);
+end;
+
+function TTinkoffClient.GetInfo: TGetInfoResponse;
+begin
+    Result := TUsersService.GetInfo(FKey);
 end;
 
 end.

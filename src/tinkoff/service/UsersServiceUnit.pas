@@ -14,8 +14,8 @@ type
         GET_ACCOUNTS_URL = SERVICE_URL + 'GetAccounts';
         GET_INFO_URL = SERVICE_URL + 'GetInfo';
     public
-        class function GetAccounts: TObjectList<TAccount>;
-        class function GetInfo: TGetInfoResponse;
+        class function GetAccounts(AKey: String): TObjectList<TAccount>;
+        class function GetInfo(AKey: String): TGetInfoResponse;
     end;
 
 implementation
@@ -25,11 +25,12 @@ uses
 
 { TUsersService }
 
-class function TUsersService.GetAccounts: TObjectList<TAccount>;
+class function TUsersService.GetAccounts(AKey: String): TObjectList<TAccount>;
 var
     Request: THttpRequest;
     Response: THttpResponse;
 begin
+    Request.Key := AKey;
     Request.Url := GET_ACCOUNTS_URL;
     Request.Method := TRESTRequestMethod.rmPOST;
     Response := THttpUtil.Execute(Request);
@@ -40,11 +41,12 @@ end;
 
 // GetUserTariff
 
-class function TUsersService.GetInfo: TGetInfoResponse;
+class function TUsersService.GetInfo(AKey: String): TGetInfoResponse;
 var
     Request: THttpRequest;
     Response: THttpResponse;
 begin
+    Request.Key := AKey;
     Request.Url := GET_INFO_URL;
     Request.Method := TRESTRequestMethod.rmPOST;
     Response := THttpUtil.Execute(Request);

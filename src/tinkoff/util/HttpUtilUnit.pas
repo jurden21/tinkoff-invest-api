@@ -8,9 +8,11 @@ uses
 type
     THttpRequest = record
     private
+        FKey: String;
         FUrl: String;
         FMethod: TRESTRequestMethod;
     public
+        property Key: String read FKey write FKey;
         property Url: String read FUrl write FUrl;
         property Method: TRESTRequestMethod read FMethod write FMethod;
     end;
@@ -31,9 +33,6 @@ type
 
 implementation
 
-uses
-    ApplicationContextUnit;
-
 { THttpUtil }
 
 class function THttpUtil.Execute(Request: THttpRequest): THttpResponse;
@@ -49,7 +48,7 @@ begin
         RESTRequest.Client := RESTClient;
         RESTRequest.Response := RESTResponse;
         RESTRequest.Method := Request.Method;
-        RESTRequest.Params.AddItem('Authorization', TApplicationContext.GetAuthorization, pkHTTPHEADER, [poDoNotEncode],
+        RESTRequest.Params.AddItem('Authorization', 'Bearer ' + Request.Key, pkHTTPHEADER, [poDoNotEncode],
             TRESTContentType.ctAPPLICATION_JSON);
         RESTRequest.Params.AddItem('Contect-Type', 'application/json', pkHTTPHEADER, [poDoNotEncode],
             TRESTContentType.ctAPPLICATION_JSON);

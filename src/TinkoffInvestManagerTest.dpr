@@ -20,6 +20,7 @@ uses
   JsonUtilUnit in 'tinkoff\util\JsonUtilUnit.pas';
 
 var
+    Key: String;
     Client: TTinkoffClient;
     Accounts: TObjectList<TAccount>;
     GetInfoResponse: TGetInfoResponse;
@@ -28,7 +29,8 @@ var
 begin
     ReportMemoryLeaksOnShutdown := True;
 
-    Client := TTinkoffClient.Create;
+    Key := TIniUtil.ReadString('Tinkoff', 'Key');
+    Client := TTinkoffClient.Create(Key);
 
     try
 
