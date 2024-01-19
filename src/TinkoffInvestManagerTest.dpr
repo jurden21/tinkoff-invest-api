@@ -12,7 +12,6 @@ uses
   AccountAccessLevelUnit in 'tinkoff\enum\AccountAccessLevelUnit.pas',
   UsersServiceUnit in 'tinkoff\service\UsersServiceUnit.pas',
   HttpUtilUnit in 'tinkoff\util\HttpUtilUnit.pas',
-  ApplicationContextUnit in 'config\ApplicationContextUnit.pas',
   IniUtilUnit in 'util\IniUtilUnit.pas',
   AccountUnit in 'tinkoff\entity\AccountUnit.pas',
   AccountsUnit in 'tinkoff\entity\AccountsUnit.pas',

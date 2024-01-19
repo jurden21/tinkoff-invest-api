@@ -204,7 +204,6 @@
         <DCCReference Include="tinkoff\enum\AccountAccessLevelUnit.pas"/>
         <DCCReference Include="tinkoff\service\UsersServiceUnit.pas"/>
         <DCCReference Include="tinkoff\util\HttpUtilUnit.pas"/>
-        <DCCReference Include="config\ApplicationContextUnit.pas"/>
         <DCCReference Include="util\IniUtilUnit.pas"/>
         <DCCReference Include="tinkoff\entity\AccountUnit.pas"/>
         <DCCReference Include="tinkoff\entity\AccountsUnit.pas"/>
