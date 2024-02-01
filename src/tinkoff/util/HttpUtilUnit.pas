@@ -7,14 +7,18 @@ uses
 
 type
     THttpRequest = record
+    public const
+        EMPTY_BODY = '{}';
     private
         FKey: String;
         FUrl: String;
         FMethod: TRESTRequestMethod;
+        FBody: String;
     public
         property Key: String read FKey write FKey;
         property Url: String read FUrl write FUrl;
         property Method: TRESTRequestMethod read FMethod write FMethod;
+        property Body: String read FBody write FBody;
     end;
 
     THttpResponse = record
@@ -28,14 +32,14 @@ type
 
     THttpUtil = class
     public
-        class function Execute(Request: THttpRequest): THttpResponse;
+        class function Execute(ARequest: THttpRequest): THttpResponse;
     end;
 
 implementation
 
 { THttpUtil }
 
-class function THttpUtil.Execute(Request: THttpRequest): THttpResponse;
+class function THttpUtil.Execute(ARequest: THttpRequest): THttpResponse;
 var
     RESTClient: TRESTClient;
     RESTRequest: TRESTRequest;
@@ -47,13 +51,13 @@ begin
     try
         RESTRequest.Client := RESTClient;
         RESTRequest.Response := RESTResponse;
-        RESTRequest.Method := Request.Method;
-        RESTRequest.Params.AddItem('Authorization', 'Bearer ' + Request.Key, pkHTTPHEADER, [poDoNotEncode],
+        RESTRequest.Method := ARequest.Method;
+        RESTRequest.Params.AddItem('Authorization', 'Bearer ' + ARequest.Key, pkHTTPHEADER, [poDoNotEncode],
             TRESTContentType.ctAPPLICATION_JSON);
         RESTRequest.Params.AddItem('Contect-Type', 'application/json', pkHTTPHEADER, [poDoNotEncode],
             TRESTContentType.ctAPPLICATION_JSON);
-        RESTClient.BaseURL := Request.Url;
-        RESTRequest.AddBody('{}');
+        RESTClient.BaseURL := ARequest.Url;
+        RESTRequest.AddBody(ARequest.Body);
         RESTRequest.Execute;
         Result.Headers := RESTResponse.Headers.Text;
         Result.Content := RESTResponse.Content;

@@ -4,7 +4,8 @@ interface
 
 uses
     System.Generics.Collections,
-    AccountUnit, GetInfoResponseUnit;
+    AccountUnit,
+    GetInfoResponseUnit, GetPositionsRequestUnit, GetPositionsResponseUnit;
 
 type
     TTinkoffClient = class
@@ -14,12 +15,13 @@ type
         constructor Create(AKey: String);
         function GetAccounts: TObjectList<TAccount>;
         function GetInfo: TGetInfoResponse;
+        function GetPositions(ARequest: TGetPositionsRequest): TGetPositionsResponse;
     end;
 
 implementation
 
 uses
-    UsersServiceUnit;
+    UsersServiceUnit, OperationsServiceUnit;
 
 { TTinkoffClient }
 
@@ -36,6 +38,11 @@ end;
 function TTinkoffClient.GetInfo: TGetInfoResponse;
 begin
     Result := TUsersService.GetInfo(FKey);
+end;
+
+function TTinkoffClient.GetPositions(ARequest: TGetPositionsRequest): TGetPositionsResponse;
+begin
+    Result := TOperationsService.GetPositions(FKey, ARequest);
 end;
 
 end.

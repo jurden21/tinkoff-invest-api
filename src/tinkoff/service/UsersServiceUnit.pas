@@ -33,6 +33,7 @@ begin
     Request.Key := AKey;
     Request.Url := GET_ACCOUNTS_URL;
     Request.Method := TRESTRequestMethod.rmPOST;
+    Request.Body := Request.EMPTY_BODY;
     Response := THttpUtil.Execute(Request);
     Result := TAccounts.Parse(Response.Content);
 end;
@@ -49,6 +50,7 @@ begin
     Request.Key := AKey;
     Request.Url := GET_INFO_URL;
     Request.Method := TRESTRequestMethod.rmPOST;
+    Request.Body := Request.EMPTY_BODY;
     Response := THttpUtil.Execute(Request);
     Result := TGetInfoResponse.Parse(Response.Content);
 end;
