@@ -3,7 +3,7 @@ unit GetInfoResponseUnit;
 interface
 
 uses
-    System.SysUtils, System.Classes, System.Json;
+    System.SysUtils, System.Classes, System.JSON;
 
 type
     TGetInfoResponse = class
@@ -17,6 +17,8 @@ type
         property QualStatus: Boolean read FQualStatus write FQualStatus;
         property QualifiedForWorkWith: TStringList read FQualifiedForWorkWith write FQualifiedForWorkWith;
         property Tariff: String read FTariff write FTariff;
+        constructor Create;
+        destructor Destroy; override;
         class function Parse(AContent: String): TGetInfoResponse;
         function ToString: String; override;
     end;
@@ -28,6 +30,17 @@ uses
 
 { TGetInfoResponse }
 
+constructor TGetInfoResponse.Create;
+begin
+
+end;
+
+destructor TGetInfoResponse.Destroy;
+begin
+    FQualifiedForWorkWith.Free;
+    inherited;
+end;
+
 class function TGetInfoResponse.Parse(AContent: String): TGetInfoResponse;
 var
     Json: TJSONObject;
@@ -38,6 +51,7 @@ begin
     Result.QualStatus := TJsonUtil.ReadBool(Json, 'qualStatus');
     Result.QualifiedForWorkWith := TJsonUtil.ReadStringList(Json, 'qualifiedForWorkWith');
     Result.Tariff := TJsonUtil.ReadString(Json, 'tariff');
+    Json.Free;
 end;
 
 function TGetInfoResponse.ToString: String;

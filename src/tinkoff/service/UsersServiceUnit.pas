@@ -4,7 +4,7 @@ interface
 
 uses
     System.Generics.Collections, REST.Types,
-    AccountUnit, GetInfoResponseUnit;
+    GetAccountsResponseUnit, GetInfoResponseUnit;
 
 type
     TUsersService = class
@@ -14,18 +14,18 @@ type
         GET_ACCOUNTS_URL = SERVICE_URL + 'GetAccounts';
         GET_INFO_URL = SERVICE_URL + 'GetInfo';
     public
-        class function GetAccounts(AKey: String): TObjectList<TAccount>;
+        class function GetAccounts(AKey: String): TGetAccountsResponse;
         class function GetInfo(AKey: String): TGetInfoResponse;
     end;
 
 implementation
 
 uses
-    HttpUtilUnit, AccountsUnit;
+    HttpUtilUnit;
 
 { TUsersService }
 
-class function TUsersService.GetAccounts(AKey: String): TObjectList<TAccount>;
+class function TUsersService.GetAccounts(AKey: String): TGetAccountsResponse;
 var
     Request: THttpRequest;
     Response: THttpResponse;
@@ -35,7 +35,7 @@ begin
     Request.Method := TRESTRequestMethod.rmPOST;
     Request.Body := Request.EMPTY_BODY;
     Response := THttpUtil.Execute(Request);
-    Result := TAccounts.Parse(Response.Content);
+    Result := TGetAccountsResponse.Parse(Response.Content);
 end;
 
 // GetMarginAttributes

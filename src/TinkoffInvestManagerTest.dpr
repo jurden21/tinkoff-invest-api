@@ -14,7 +14,6 @@ uses
   HttpUtilUnit in 'tinkoff\util\HttpUtilUnit.pas',
   IniUtilUnit in 'util\IniUtilUnit.pas',
   AccountUnit in 'tinkoff\entity\AccountUnit.pas',
-  AccountsUnit in 'tinkoff\entity\AccountsUnit.pas',
   GetInfoResponseUnit in 'tinkoff\entity\users\GetInfoResponseUnit.pas',
   JsonUtilUnit in 'tinkoff\util\JsonUtilUnit.pas',
   OperationsServiceUnit in 'tinkoff\service\OperationsServiceUnit.pas',
@@ -27,10 +26,10 @@ var
     Client: TTinkoffClient;
     ExampleAccountId: String;
     Index: Integer;
+    GetAccountsResponse: TGetAccountsResponse;
     GetInfoResponse: TGetInfoResponse;
     GetPositionsRequest: TGetPositionsRequest;
     GetPositionsResponse: TGetPositionsResponse;
-    Accounts: TObjectList<TAccount>;
 
 begin
     ReportMemoryLeaksOnShutdown := True;
@@ -41,17 +40,20 @@ begin
     try
 
         Writeln('Request UsersService.GetAccounts...');
-        Accounts := Client.GetAccounts;
-        ExampleAccountId := Accounts[0].Id;
-        for Index := 0 to Accounts.Count - 1 do
-            Writeln(Accounts[Index].ToString);
-        Accounts.Free;
+        GetAccountsResponse := Client.GetAccounts;
+        if GetAccountsResponse.Accounts.Count > 3
+        then ExampleAccountId := GetAccountsResponse.Accounts[3].Id
+        else ExampleAccountId := GetAccountsResponse.Accounts[0].Id;
+        for Index := 0 to GetAccountsResponse.Accounts.Count - 1 do
+            Writeln(GetAccountsResponse.Accounts[Index].ToString);
+        GetAccountsResponse.Free;
         Writeln('=====================================================================');
         Writeln('');
 
         Writeln('Request UserService.GetInfo...');
         GetInfoResponse := Client.GetInfo;
         Writeln(GetInfoResponse.ToString);
+        GetInfoResponse.Free;
         Writeln('=====================================================================');
         Writeln('');
 
@@ -60,6 +62,8 @@ begin
         GetPositionsRequest := TGetPositionsRequest.Create(ExampleAccountId);
         GetPositionsResponse := Client.GetPositions(GetPositionsRequest);
         Writeln(GetPositionsResponse.ToString);
+        GetPositionsResponse.Free;
+        GetPositionsRequest.Free;
         Writeln('=====================================================================');
         Writeln('');
 
