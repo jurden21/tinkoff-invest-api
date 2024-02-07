@@ -34,14 +34,14 @@ end;
 class function TGetAccountsResponse.Parse(AContent: String): TGetAccountsResponse;
 var
     Json: TJSONObject;
-    AccountsJson: TJSONArray;
+    ListJson: TJSONArray;
     Index: Integer;
 begin
     Json := TJsonObject.ParseJSONValue(AContent) as TJSONObject;
     Result := TGetAccountsResponse.Create;
-    AccountsJson := Json.FindValue('accounts') as TJSONArray;
-    for Index := 0 to AccountsJson.Count - 1 do
-        Result.Accounts.Add(TAccount.Create(AccountsJson.Items[Index]));
+    ListJson := Json.FindValue('accounts') as TJSONArray;
+    for Index := 0 to ListJson.Count - 1 do
+        Result.Accounts.Add(TAccount.Create(ListJson.Items[Index]));
     Json.Free;
 end;
 

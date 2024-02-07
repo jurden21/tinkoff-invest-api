@@ -13,13 +13,14 @@ uses
   UsersServiceUnit in 'tinkoff\service\UsersServiceUnit.pas',
   HttpUtilUnit in 'tinkoff\util\HttpUtilUnit.pas',
   IniUtilUnit in 'util\IniUtilUnit.pas',
-  AccountUnit in 'tinkoff\entity\AccountUnit.pas',
+  AccountUnit in 'tinkoff\entity\types\AccountUnit.pas',
   GetInfoResponseUnit in 'tinkoff\entity\users\GetInfoResponseUnit.pas',
   JsonUtilUnit in 'tinkoff\util\JsonUtilUnit.pas',
   OperationsServiceUnit in 'tinkoff\service\OperationsServiceUnit.pas',
   GetPositionsResponseUnit in 'tinkoff\entity\operations\GetPositionsResponseUnit.pas',
   GetPositionsRequestUnit in 'tinkoff\entity\operations\GetPositionsRequestUnit.pas',
-  GetAccountsResponseUnit in 'tinkoff\entity\users\GetAccountsResponseUnit.pas';
+  GetAccountsResponseUnit in 'tinkoff\entity\users\GetAccountsResponseUnit.pas',
+  MoneyValueUnit in 'tinkoff\entity\types\MoneyValueUnit.pas';
 
 var
     Key: String;
@@ -61,7 +62,12 @@ begin
         Writeln('Account: ' + ExampleAccountId);
         GetPositionsRequest := TGetPositionsRequest.Create(ExampleAccountId);
         GetPositionsResponse := Client.GetPositions(GetPositionsRequest);
-        Writeln(GetPositionsResponse.ToString);
+        Writeln('Money:');
+        for Index := 0 to GetPositionsResponse.Money.Count - 1 do
+            Writeln(GetPositionsResponse.Money[Index].ToString);
+        Writeln('Blocked:');
+        for Index := 0 to GetPositionsResponse.Blocked.Count - 1 do
+            Writeln(GetPositionsResponse.Blocked[Index].ToString);
         GetPositionsResponse.Free;
         GetPositionsRequest.Free;
         Writeln('=====================================================================');

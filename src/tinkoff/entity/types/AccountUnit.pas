@@ -30,24 +30,20 @@ type
 
 implementation
 
+uses
+    JsonUtilUnit;
+
 { TAccount }
 
 constructor TAccount.Create(AValue: TJsonValue);
-var
-    Str: String;
 begin
-    AValue.TryGetValue('id', FId);
-    AValue.TryGetValue('type', Str);
-    FTyp := TAccountType.ValueByName(Str);
-    AValue.TryGetValue('name', FName);
-    AValue.TryGetValue('status', Str);
-    FStatus := TAccountStatus.ValueByName(Str);
-    AValue.TryGetValue('openedDate', Str);
-//    FOpenedDate := StrToDate(Str.Substring(0, 10));
-    AValue.TryGetValue('closedDate', Str);
-//    FClosedDate := StrToDate(Str.Substring(0, 10));
-    AValue.TryGetValue('accessLevel', Str);
-    FAccessLevel := TAccountAccessLevel.ValueByName(Str);
+    FId := TJsonUtil.ReadString(AValue, 'id');
+    FTyp := TAccountType.ValueByName(TJsonUtil.ReadString(AValue, 'type'));
+    FName := TJsonUtil.ReadString(AValue, 'name');
+    FStatus := TAccountStatus.ValueByName(TJsonUtil.ReadString(AValue, 'status'));
+    FOpenedDate := TJsonUtil.ReadDate(AValue, 'openedDate');
+    FClosedDate := TJsonUtil.ReadDate(AValue, 'closedDate');
+    FAccessLevel := TAccountAccessLevel.ValueByName(TJsonUtil.ReadString(AValue, 'accessLevel'));
 end;
 
 function TAccount.ToString: String;

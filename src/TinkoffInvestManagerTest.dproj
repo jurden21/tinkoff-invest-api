@@ -205,13 +205,14 @@
         <DCCReference Include="tinkoff\service\UsersServiceUnit.pas"/>
         <DCCReference Include="tinkoff\util\HttpUtilUnit.pas"/>
         <DCCReference Include="util\IniUtilUnit.pas"/>
-        <DCCReference Include="tinkoff\entity\AccountUnit.pas"/>
+        <DCCReference Include="tinkoff\entity\types\AccountUnit.pas"/>
         <DCCReference Include="tinkoff\entity\users\GetInfoResponseUnit.pas"/>
         <DCCReference Include="tinkoff\util\JsonUtilUnit.pas"/>
         <DCCReference Include="tinkoff\service\OperationsServiceUnit.pas"/>
         <DCCReference Include="tinkoff\entity\operations\GetPositionsResponseUnit.pas"/>
         <DCCReference Include="tinkoff\entity\operations\GetPositionsRequestUnit.pas"/>
         <DCCReference Include="tinkoff\entity\users\GetAccountsResponseUnit.pas"/>
+        <DCCReference Include="tinkoff\entity\types\MoneyValueUnit.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
